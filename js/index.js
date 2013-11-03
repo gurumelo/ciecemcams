@@ -28,15 +28,31 @@ $(function() {
 			$(propioboton).attr('disabled', 'disabled');
 			skyactualiza(idurl, idimg, idempieza);
 			
-			this.idbucle = setInterval( function() {
-				skyactualiza(idurl, idimg, idempieza);
-			}, cadacuanto);
+			cualbu = $(propioboton).attr('data-inter');
+			
+			if ( cualbu == 'sky' ) {
+				bucleActsky = setInterval( function() {
+					skyactualiza(idurl, idimg, idempieza);
+				}, cadacuanto);
+			}
+			else {
+				bucleActdona = setInterval( function() {
+					skyactualiza(idurl, idimg, idempieza);
+				}, cadacuanto);
+			}
 
 			$(propioboton).attr({ 'data-estado': 'encendido', class: 'btn btn-success btn-sm' }).removeAttr('disabled').html(idmensajeautomatico);
 		}
 		else {
 			$(propioboton).attr({ 'data-estado': 'apagado', class: 'btn btn-sm' }).html(idmensaje);
-			clearInterval(this.idbucle);
+			cualbu = $(propioboton).attr('data-inter');
+			if ( cualbu == 'sky' ) {
+				clearInterval(bucleActsky);
+			}
+			else {
+				clearInterval(bucleActdona);
+			}
+			
 		}
 	};
 	
