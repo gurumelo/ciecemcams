@@ -22,7 +22,7 @@ $(function() {
 	};
 
 	// definir cada bucle
-	function automatica(propioboton, idurl, idimg, idempieza, cadacuanto, idmensajeautomatico, idmensaje, idbucle) {
+	function automatica(propioboton, idurl, idimg, idempieza, cadacuanto, idmensajeautomatico, idmensaje) {
 		var estado = $(propioboton).attr('data-estado');
 		if ( estado == 'apagado' ) {
 			$(propioboton).attr('disabled', 'disabled');
@@ -64,12 +64,12 @@ $(function() {
 	
 	// Actualiza cada 5 minutos
 	$('#skymatic').on('click', function() {
-		automatica($(this), 'http://150.214.162.13/skycamera/goto/SONA%20CIECEM/img?', '#skyimg', 'img/empieza.jpg', 300000, 'Apagar automático <span class="glyphicon glyphicon-off"></span>', 'Actualizar cada 5 minutos <span class="glyphicon glyphicon-refresh"></span>', bucleActsky);
+		automatica($(this), 'http://150.214.162.13/skycamera/goto/SONA%20CIECEM/img?', '#skyimg', 'img/empieza.jpg', 300000, 'Apagar automático <span class="glyphicon glyphicon-off"></span>', 'Actualizar cada 5 minutos <span class="glyphicon glyphicon-refresh"></span>');
 	});
 	
 	// Actualiza cada 2 segundos
 	$('#donanamatic').on('click', function() {
-		automatica($(this), 'http://150.214.162.14:8081/snapshot.cgi?user=visitor&pwd=&', '#camC', 'img/empieza1.jpg', 2000, 'Apagar automático <span class="glyphicon glyphicon-off"></span>', 'Actualizar cada 2 segundos <span class="glyphicon glyphicon-refresh"></span>', bucleActdona);
+		automatica($(this), 'http://150.214.162.14:8081/snapshot.cgi?user=visitor&pwd=&', '#camC', 'img/empieza1.jpg', 2000, 'Apagar automático <span class="glyphicon glyphicon-off"></span>', 'Actualizar cada 2 segundos <span class="glyphicon glyphicon-refresh"></span>');
 	});
 
 	//si pulsa algo del menú
