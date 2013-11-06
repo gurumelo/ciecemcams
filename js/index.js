@@ -12,15 +12,15 @@ $(function() {
 	};
 
 
-	function manual() {
-		$('#skyact').attr('disabled', 'disabled').html('Cargando <span class="glyphicon glyphicon-asterisk"></span>');
-		skyactualiza('http://150.214.162.13/skycamera/goto/SONA%20CIECEM/img?', '#skyimg', 'img/empieza.jpg');
-		$('#skyimg').on('load', function() {
-			$('#skyact').html('Actualizar manualmente <span class="glyphicon glyphicon-floppy-save"></span>').removeAttr('disabled');
+	function manual(mboton, mmensajecargando, murl, mimg, mempieza, mmensajeboton) {
+		$(mboton).attr('disabled', 'disabled').html(mmensajecargando);
+		skyactualiza(murl, mimg, mempieza);
+		$(mimg).on('load', function() {
+			$(mboton).html(mmensajeboton).removeAttr('disabled');
 		});
 	};
 
-	// definir cada bucle
+
 	function automatica(propioboton, idurl, idimg, idempieza, cadacuanto, idmensajeautomatico, idmensaje, posicionarray) {
 		var estado = $(propioboton).attr('data-estado');
 		if ( estado == 'apagado' ) {
@@ -41,9 +41,8 @@ $(function() {
 	
 	// Actualiza manualmente pulsando actualizar
 	$('#skyact').on('click', function() {
-		manual();
+		manual($(this), 'Cargando <span class="glyphicon glyphicon-asterisk"></span>', 'http://150.214.162.13/skycamera/goto/SONA%20CIECEM/img?', '#skyimg', 'img/empieza.jpg', 'Actualizar manualmente <span class="glyphicon glyphicon-floppy-save"></span>');
 	});
-	
 	
 	// Actualiza cada 5 minutos
 	$('#skymatic').on('click', function() {
@@ -55,24 +54,18 @@ $(function() {
 		automatica($(this), 'http://150.214.162.14:8081/snapshot.cgi?user=visitor&pwd=&', '#camC', 'img/empieza1.jpg', 2000, 'Apagar automático <span class="glyphicon glyphicon-off"></span>', 'Actualizar cada 2 segundos <span class="glyphicon glyphicon-refresh"></span>', 1);
 	});
 
-	//si pulsa algo del menú
 	$('.cambio').on('click', function(e) {
 		e.preventDefault();
-		$('.cambio').parent().removeClass('active');
-		$(this).parent().addClass('active');
+		var relacion = $(this).attr('data-rel'),
+			cualmuestro = $(this).attr('href');
+		$('.pestanita').parent().removeClass('active');
+		$('.pestanita[data-rel='+ relacion +']').parent().addClass('active');
+		$('.flechita').removeAttr('disabled');
+		$('.flechita[data-rel='+ relacion +']').attr('disabled', 'disabled');
 		$('.diapositiva').hide();
-		var cualmuestro = $(this).attr('href');
 		$(cualmuestro).show().removeClass('invisible');
 	});
-	
-	$('.cambioboton').on('click', function(e) {
-		e.preventDefault();
-		$('.cambioboton').removeAttr('disabled');
-		$(this).attr('disabled', 'disabled');
-		$('.diapositiva').hide();
-		var cualmuestro = $(this).attr('href');
-		$(cualmuestro).show().removeClass('invisible');
-	});
+
 
 	// empieza
 	skyactualiza('http://150.214.162.13/skycamera/goto/SONA%20CIECEM/img?', '#skyimg', 'img/empieza.jpg');
